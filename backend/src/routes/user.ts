@@ -26,7 +26,7 @@ export const userRouter = new Hono<{
       }).$extends(withAccelerate())
 
       try{
-          const user = await prisma.user.create({
+          const user = await prisma.donar.create({
               data:{
                   email:body.email,
                   password:body.password,
@@ -38,7 +38,9 @@ export const userRouter = new Hono<{
                   lastDonation:body.lastDonation,
                   contact:body.contact,
                   image:body.image,
-                  available:body.available
+                  available:body.available,
+                  donar: body.donar,
+                  donarId: body.donarId
               }
           })
           const token = await sign({id:user.id},c.env.JWT_SECERT)
@@ -62,7 +64,7 @@ userRouter.post('/signin', async(c) => {
   }).$extends(withAccelerate())
 
   try {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.donar.findFirst({
   where: {
     email:body.username,
     password:body.password,
