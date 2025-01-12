@@ -1,5 +1,19 @@
 import { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+interface SigninInput {
+    email: string;
+    rollNo: string;
+    password: string;
+    name: string;
+    age: string;
+    address: string;
+    contact: string;
+    bloodType: string;
+    lastDonation: string;
+    available: string;
+    image: string;
+}
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
@@ -23,7 +37,7 @@ export const Auth =({ type }: { type: "signup" | "signin" }) => {
     async function sendRequest() {
         try {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
-            const jwt = response.data;
+            const jwt = response.data as string;
             localStorage.setItem("token", jwt);
             navigate("/Donars");
         } catch(e) {
@@ -53,22 +67,22 @@ export const Auth =({ type }: { type: "signup" | "signin" }) => {
                         name: e.target.value
                     })
                 }} /> : null}
-                <LabelledInput label="Username" placeholder="purple@gmail.com" onChange={(e) => {
+                <LabelledInput label="email" placeholder="purple@gmail.com" onChange={(e) => {
                     setPostInputs({
                         ...postInputs,
                         email: e.target.value
+                    })
+                }} />
+                <LabelledInput label="rollNo" placeholder="rollno" onChange={(e) => {
+                    setPostInputs({
+                        ...postInputs,
+                        rollNo: e.target.value
                     })
                 }} />
                 <LabelledInput label="Password" type={"password"} placeholder="password" onChange={(e) => {
                     setPostInputs({
                         ...postInputs,
                         password: e.target.value
-                    })
-                }} />
-                <LabelledInput label="Password"  placeholder="rollNo" onChange={(e) => {
-                    setPostInputs({
-                        ...postInputs,
-                        rollNo: e.target.value
                     })
                 }} />
                 <LabelledInput label="bloodType"  placeholder="bloodType" onChange={(e) => {

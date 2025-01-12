@@ -68,7 +68,6 @@ userRouter.post('/signin', async(c) => {
   where: {
     email:body.username,
     password:body.password,
-    name:body.name,
 
   }
 })

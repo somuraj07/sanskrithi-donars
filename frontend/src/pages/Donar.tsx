@@ -1,8 +1,9 @@
 import Appbar from "../components/Appbar";
-import { FullDonars } from "../components/FullDonars";
 import { Spinner } from "../components/Spinner";
 import { useDonar } from "../hooks";
 import {useParams} from "react-router-dom";
+import FullDonar from "../components/FullDonars";
+
 
 export const Donar = () => {
     const { id } = useParams();
@@ -23,6 +24,6 @@ export const Donar = () => {
         </div>
     }
     return <div>
-        <FullDonars  donar={donar} />
+        <FullDonar donar={donar} />
     </div>
 }

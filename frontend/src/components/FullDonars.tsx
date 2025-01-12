@@ -1,11 +1,15 @@
+import { Search } from "lucide-react";
 import Appbar from "./Appbar"
 import Footer from "./Footer"
 import Review from "./Review"
 import { useState } from 'react';
+import { Donarcard } from './DonorCard';
+import { Donar } from "../hooks";
 
-export const fullDonar = ({donar}:{donar:Donar}) =>{
+export const fullDonar = ({}:{donar:Donar}) =>{
     const [searchTerm, setSearchTerm] = useState('');
-    const filteredDonors = donors.filter(donor => 
+    const donors: any[] = []; // Define the donors array
+    const filteredDonors = donors.filter((donor: { name: string; bloodType: string; location: string; }) => 
         donor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         donor.bloodType.toLowerCase().includes(searchTerm.toLowerCase()) ||
         donor.location.toLowerCase().includes(searchTerm.toLowerCase())
@@ -29,12 +33,13 @@ return <div>
 
         {/* Donors Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredDonors.map(donor => (
-            <DonorCard key={donor.id} donor={donor} />
-          ))}
+            {filteredDonors.map((donor: { id: any; }) => (
+            <Donarcard key={donor.id} donar={donor} name={undefined} email={""} rollNo={""} bloodType={""} address={""} lastDonation={""} contact={""} image={""} available={false} id={""} />
+            ))}
         </div>
       </div>
     <Review />
     <Footer />
 </div>
 }
+export default fullDonar;

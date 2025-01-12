@@ -2,11 +2,14 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { DonorCardProps } from "../components/DonorCard"; // Adjust the import path as necessary
 
 
 export interface Donar {
+    map(arg0: (donar: DonorCardProps) => import("react/jsx-runtime").JSX.Element): import("react").ReactNode;
     "email" :String ;
   "rollNo": String ;
+  "name":String;
   "bloodType": String;
   "address": String;
   "lastDonation" :String;
@@ -14,10 +17,11 @@ export interface Donar {
   "image" :String;
   "available" :Boolean;
   "id":String;
+  
     }
 
 
-export const useBlog = ({ id }: { id: string }) => {
+export const useDonar= ({ id }: { id: string }) => {
     const [loading, setLoading] = useState(true);
     const [donar, setDonar] = useState<Donar>();
 
@@ -28,7 +32,8 @@ export const useBlog = ({ id }: { id: string }) => {
             }
         })
             .then(response => {
-                setDonar(response.data.donar);
+                const data = response.data as { donar: Donar };
+                setDonar(data.donar);
                 setLoading(false);
             })
     }, [id])
@@ -39,7 +44,7 @@ export const useBlog = ({ id }: { id: string }) => {
     }
 
 }
-export const useBlogs = () => {
+export const useDonars = () => {
     const [loading, setLoading] = useState(true);
     const [donars, setDonars] = useState<Donar[]>([]);
 
@@ -50,7 +55,8 @@ export const useBlogs = () => {
             }
         })
             .then(response => {
-                setDonars(response.data.donars);
+                const data = response.data as { donars: Donar[] };
+                setDonars(data.donars);
                 setLoading(false);
             })
     }, [])

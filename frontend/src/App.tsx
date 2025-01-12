@@ -3,6 +3,7 @@ import { Signup } from './pages/Signup'
 import { Signin } from './pages/Signin'
 
 import { Donar } from './pages/Donar'
+import { Donars } from './pages/Donars'
 
 
 function App() {
